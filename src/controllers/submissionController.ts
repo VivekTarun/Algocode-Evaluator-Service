@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-
+// controllers/submissionController.ts
+import { Request, Response, Router } from 'express';
 import { CreateSubmissionDto } from '../dtos/CreateSubmissionDto';
-
+import { createSubmissionSchema } from '../validators/submissionSchema';
+import { validate } from '../validators/zodValidator';
 
 export function addSubmission(req: Request, res: Response) {
     const submissionDto = req.body as CreateSubmissionDto;
     console.log(submissionDto);
-    // TODO: Add validation using zod
 
     return res.status(201).json({
         success: true,
@@ -15,3 +15,11 @@ export function addSubmission(req: Request, res: Response) {
         data: submissionDto
     });
 }
+
+// Create a router to use the validate middleware
+const router = Router();
+
+// Use the validate middleware before the addSubmission function
+router.post('/add-submission', validate(createSubmissionSchema), addSubmission);
+
+export default router;
