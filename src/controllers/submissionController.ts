@@ -1,4 +1,3 @@
-// controllers/submissionController.ts
 import { Request, Response, Router } from 'express';
 import { CreateSubmissionDto } from '../dtos/CreateSubmissionDto';
 import { createSubmissionSchema } from '../validators/submissionSchema';
